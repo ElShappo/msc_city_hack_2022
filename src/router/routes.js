@@ -8,7 +8,21 @@ const routes = [
         path: "/user/:login",
         name: "user",
         component: () => import("pages/UserPage.vue"),
+        children: [
+          {
+            path: "",
+
+            component: () => import("pages/UserPageMain.vue"),
+          },
+          {
+            path: "corrections",
+
+            component: () => import("pages/UserPageCorrections.vue"),
+          },
+        ],
       },
+      { path: "/login", component: () => import("pages/LoginPage.vue") },
+      { path: "/signup", component: () => import("pages/SignupPage.vue") },
     ],
   },
 
