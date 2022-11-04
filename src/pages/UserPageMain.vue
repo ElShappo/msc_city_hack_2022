@@ -1,22 +1,32 @@
 <template>
-  <q-page>
+  <q-page class="row">
     <!-- <input type="file" @change="onFileChange" /> -->
 
-    <div class="col-12 row justify-center">
-      <q-uploader
-        class="col-12"
-        @added="onFileChangeQuasar"
-        label="Upload files"
-        color="primary"
-        square
-        flat
-        bordered
-        style="max-width: 300px"
-      />
+    <div class="col-3 row justify-center content-center">
+      <div class="col-12 row justify-center q-pb-lg">
+        <q-uploader
+          @added="onFileChangeQuasar"
+          label="Upload a file"
+          color="primary"
+          style="max-width: 200px; max-height: 120px"
+        />
+      </div>
+      <div class="col-12 row justify-center">
+        <q-btn
+          @click="calculatePriceOfSelected"
+          flat
+          bordered
+          color="teal col-12 text-weight-light"
+        >
+          <q-icon left size="3em" name="calculate" />
+          <span>Рассчитать стоимость</span>
+        </q-btn>
+      </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-9 q-pr-md q-pt-md q-pl-md row content-center">
       <q-table
+        class="col"
         title="Imported table"
         :rows="rows"
         :columns="columns"
@@ -26,6 +36,8 @@
         v-model:selected="selected"
       />
     </div>
+
+    <!-- <div class="q-mt-md">Selected: {{ JSON.stringify(selected) }}</div> -->
   </q-page>
 </template>
 
@@ -76,6 +88,10 @@ export default {
             this.selected.length > 1 ? "s" : ""
           } selected of ${this.rows.length}`;
     },
+
+    checkSelection() {},
+
+    calculatePriceOfSelected() {},
 
     // onFileChange(event) {
     //   console.log(event);

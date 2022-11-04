@@ -5,17 +5,12 @@
         class="row items-center text-h3 text-weight-light text-white text-center"
       >
         <div class="col-8 row justify-start items-center">
-          <q-btn
-            class="q-pl-xl q-pr-xl text-h3 text-weight-light"
-            flat
-            no-caps
-            @click="toMain"
-          >
+          <q-btn class="text-h3 text-weight-light" flat no-caps @click="toMain">
             Главная
           </q-btn>
 
           <q-btn
-            class="q-pl-xl text-h3 text-weight-light"
+            class="text-h3 text-weight-light"
             flat
             no-caps
             @click="toCorrections"
@@ -38,7 +33,9 @@
       </div>
     </q-header>
     <q-page-container>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </q-page-container>
   </q-layout>
 </template>
