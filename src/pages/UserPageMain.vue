@@ -91,7 +91,12 @@ export default {
 
     checkSelection() {},
 
-    calculatePriceOfSelected() {},
+    calculatePriceOfSelected() {
+      this.$q.notify({
+        type: "negative",
+        message: "Количество комнат должно быть уникально",
+      });
+    },
 
     // onFileChange(event) {
     //   console.log(event);
