@@ -25,6 +25,7 @@ const routes = [
         path: "corrections",
         component: Corrections,
       },
+      { path: "analogues", component: () => import("pages/AnaloguesPage.vue") },
     ],
   },
 
