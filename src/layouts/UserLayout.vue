@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-layout>
     <q-header>
       <div
@@ -64,4 +64,4 @@ export default {
 };
 </script>
 
-<style></style> -->
+<style></style>
