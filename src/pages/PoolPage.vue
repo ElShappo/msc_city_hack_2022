@@ -2,24 +2,37 @@
   <q-page class="row">
     <!-- <input type="file" @change="onFileChange" /> -->
 
+    <table id="my_table" style="display: none">
+      <tr>
+        <th>Местоположение</th>
+        <th>Количество комнат</th>
+        <th>Сегмент</th>
+        <th>Этажность дома</th>
+        <th>Материал стен</th>
+        <th>Этаж расположения</th>
+        <th>Площадь квартира</th>
+        <th>Площадь кухни</th>
+        <th>Наличие балкона/лоджии</th>
+        <th>Удаленность от станции метро</th>
+        <th>Состояние</th>
+      </tr>
+      <tr v-for="row in rows" :key="row[0]">
+        <td v-for="elem in row" :key="elem">
+          {{ elem }}
+        </td>
+      </tr>
+    </table>
+
     <div class="col-3 row justify-center content-center">
-      <div class="col-12 row justify-center q-pb-lg">
-        <q-uploader
-          @added="onFileChangeQuasar"
-          label="Upload a file"
-          color="primary"
-          style="max-width: 200px; max-height: 120px"
-        />
-      </div>
       <div class="col-12 row justify-center">
         <q-btn
-          @click="calculatePriceOfSelected"
+          @click="exportToExcel"
           flat
           bordered
           color="teal col-12 text-weight-light"
         >
-          <q-icon left size="3em" name="calculate" />
-          <span>Рассчитать стоимость</span>
+          <q-icon left size="3em" name="file_download" />
+          <span>Экпорт таблицы</span>
         </q-btn>
       </div>
     </div>
@@ -27,13 +40,10 @@
     <div class="col-9 q-pr-md q-pl-md row content-center">
       <q-table
         class="col"
-        title="Квартиры"
+        title="Объекты оценки"
         :rows="rows"
         :columns="columns"
         :row-key="createId"
-        :selected-rows-label="getSelectedString"
-        selection="multiple"
-        v-model:selected="selected"
       />
     </div>
 
@@ -42,10 +52,8 @@
 </template>
 
 <script>
-import readXlsxFile from "read-excel-file";
-
 export default {
-  name: "UserPageMain",
+  name: "PoolPage",
   data() {
     return {
       rows: [],
@@ -127,72 +135,21 @@ export default {
           field: "10",
           sortable: true,
         },
+        {
+          name: "price",
+          align: "center",
+          label: "Цена, млн. руб",
+          field: "11",
+          sortable: true,
+        },
       ],
-      selected: [],
     };
   },
   methods: {
-    onFileChangeQuasar(event) {
-      // console.log(event);
-      let xlsxfile = event ? event[0] : null;
-      readXlsxFile(xlsxfile).then((rows) => {
-        rows.shift();
-        console.log(rows);
-        this.rows = rows;
-        for (let i = 0; i < this.rows.length; ++i) {
-          // this.rows[i] = Object.assign(this.rows[i]);
-          console.log(this.rows[i]);
-        }
-      });
-    },
-
-    createId(row) {
-      return row.reduce((partialSum, a) => partialSum + a, 0);
-    },
-
-    getSelectedString() {
-      return this.selected.length === 0
-        ? ""
-        : `${this.selected.length} record${
-            this.selected.length > 1 ? "s" : ""
-          } selected of ${this.rows.length}`;
-    },
-
-    calculatePriceOfSelected() {
-      let occurrencesForEachNumberOfRooms = new Array(6).fill(0);
-      // each index corresponds to amount of parsed flats with such rooms number
-      // we imply that the max number of rooms is 5. So we need to store 6 elements
-      // 0 index corresponds to amount of flats with zero rooms, etc
-
-      if (this.selected.length === 0) {
-        this.$q.notify({
-          type: "warning",
-          message: "Ни одна квартира не выбрана",
-        });
-        return;
-      }
-
-      for (let row of this.selected) {
-        let rooms = row[1]; // get number of rooms
-        occurrencesForEachNumberOfRooms[rooms] += 1;
-      }
-
-      for (let num of occurrencesForEachNumberOfRooms) {
-        if (num > 1) {
-          this.$q.notify({
-            type: "negative",
-            message: "Количество комнат должно быть уникально",
-          });
-          return;
-        }
-      }
-
-      this.$q.notify({
-        type: "positive",
-        message: "Success!",
-      });
-
-      this.$router.push("analogues");
+    exportToExcel() {
+      var wb = XLSX.utils.table_to_book(document.getElementById("my_table"));
+      /* Export to file (start a download) */
+      XLSX.writeFile(wb, "exported.xlsx");
     },
   },
 };

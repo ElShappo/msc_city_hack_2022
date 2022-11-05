@@ -5,7 +5,7 @@
     <div class="col-3 row justify-center content-center">
       <div class="col-12 row justify-center">
         <q-btn
-          @click="calculatePriceOfSelected"
+          @click="calculatePool"
           flat
           bordered
           color="teal col-12 text-weight-light"
@@ -117,6 +117,13 @@ export default {
           field: "10",
           sortable: true,
         },
+        {
+          name: "price",
+          align: "center",
+          label: "Цена, млн. руб",
+          field: "11",
+          sortable: true,
+        },
       ],
       selected: [],
     };
@@ -132,6 +139,9 @@ export default {
         : `${this.selected.length} record${
             this.selected.length > 1 ? "s" : ""
           } selected of ${this.rows.length}`;
+    },
+    calculatePool() {
+      this.$router.push("pool");
     },
   },
   mounted() {

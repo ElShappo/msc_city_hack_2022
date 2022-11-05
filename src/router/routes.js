@@ -26,6 +26,7 @@ const routes = [
         component: Corrections,
       },
       { path: "analogues", component: () => import("pages/AnaloguesPage.vue") },
+      { path: "pool", component: () => import("pages/PoolPage.vue") },
     ],
   },
 
