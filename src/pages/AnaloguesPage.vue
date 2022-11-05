@@ -34,11 +34,13 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "AnaloguesPage",
   data() {
     return {
       rows: [],
+      fetched: null,
       columns: [
         {
           name: "location",
@@ -145,7 +147,15 @@ export default {
     },
   },
   mounted() {
-    // there will be rest api request
+    // let url = "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits";
+    let url = "http://127.0.0.1:8081/calc_analogs";
+
+    // under this url we would get the array of arrays
+
+    axios.get(url).then((response) => {
+      this.rows = response;
+    });
+    // .then((response) => this.rows.push([JSON.stringify(response)]));
   },
 };
 </script>

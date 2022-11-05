@@ -131,6 +131,53 @@ export default {
       selected: [],
     };
   },
+
+  computed: {
+    formattedSelected() {
+      let result = {
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+      };
+      for (let row of this.selected) {
+        let obj = {
+          location: "",
+          rooms: "",
+          category: "",
+          floors: "",
+          walls_material: "",
+          floor: "",
+          total_area: "",
+          kitchen_area: "",
+          is_balcony: "",
+          metro_distance: "",
+          condition: "",
+          price: "",
+        };
+        let i = 0;
+        for (let key in obj) {
+          let elem = row[i];
+          obj[key] = elem;
+          ++i;
+        }
+      }
+      return 0;
+    },
+  },
+
+  watch: {
+    selected() {
+      for (let row of this.selected) {
+        for (let elem of row) {
+          console.log(elem);
+        }
+      }
+      // console.log(this.selected);
+    },
+  },
   methods: {
     onFileChangeQuasar(event) {
       // console.log(event);
@@ -186,6 +233,12 @@ export default {
           return;
         }
       }
+
+      // const article = { title: "Vue POST Request Example" };
+      // const url = "...";
+      // axios
+      //   .post("https://reqres.in/api/articles", article)
+      //   .then((response) => (this.articleId = response.data.id));
 
       this.$q.notify({
         type: "positive",
