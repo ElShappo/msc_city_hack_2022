@@ -129,55 +129,27 @@ export default {
         },
       ],
       selected: [],
-    };
-  },
-
-  computed: {
-    formattedSelected() {
-      let result = {
+      formattedSelected: {
         0: null,
         1: null,
         2: null,
         3: null,
         4: null,
         5: null,
-      };
-      for (let row of this.selected) {
-        let obj = {
-          location: "",
-          rooms: "",
-          category: "",
-          floors: "",
-          walls_material: "",
-          floor: "",
-          total_area: "",
-          kitchen_area: "",
-          is_balcony: "",
-          metro_distance: "",
-          condition: "",
-          price: "",
-        };
-        let i = 0;
-        for (let key in obj) {
-          let elem = row[i];
-          obj[key] = elem;
-          ++i;
-        }
-      }
-      return 0;
-    },
+      },
+    };
   },
 
-  watch: {
-    selected() {
-      for (let row of this.selected) {
-        for (let elem of row) {
-          console.log(elem);
-        }
-      }
-      // console.log(this.selected);
-    },
-  },
+  // watch: {
+  //   selected() {
+  //     for (let row of this.selected) {
+  //       for (let elem of row) {
+  //         console.log(elem);
+  //       }
+  //     }
+  //     // console.log(this.selected);
+  //   },
+  // },
   methods: {
     onFileChangeQuasar(event) {
       // console.log(event);
@@ -205,6 +177,37 @@ export default {
           } selected of ${this.rows.length}`;
     },
 
+    formatSelected() {
+      for (let row of this.selected) {
+        let obj = {
+          location: "",
+          rooms: "",
+          category: "",
+          floors: "",
+          walls_material: "",
+          floor: "",
+          total_area: "",
+          kitchen_area: "",
+          is_balcony: "",
+          metro_distance: "",
+          condition: "",
+          price: "",
+        };
+        let i = 0;
+        for (let key in obj) {
+          let elem = row[i];
+          obj[key] = elem;
+          ++i;
+        }
+        if (obj.rooms === "Студия") {
+          this.formattedSelected[0] = obj;
+        } else {
+          this.formattedSelected[obj.rooms] = obj;
+        }
+      }
+      console.log(this.formattedSelected);
+    },
+
     calculatePriceOfSelected() {
       let occurrencesForEachNumberOfRooms = new Array(6).fill(0);
       // each index corresponds to amount of parsed flats with such rooms number
@@ -221,7 +224,11 @@ export default {
 
       for (let row of this.selected) {
         let rooms = row[1]; // get number of rooms
-        occurrencesForEachNumberOfRooms[rooms] += 1;
+        if (rooms == "Студия") {
+          occurrencesForEachNumberOfRooms[0] += 1;
+        } else {
+          occurrencesForEachNumberOfRooms[rooms] += 1;
+        }
       }
 
       for (let num of occurrencesForEachNumberOfRooms) {
@@ -234,10 +241,11 @@ export default {
         }
       }
 
-      // const article = { title: "Vue POST Request Example" };
+      this.formatSelected();
+
       // const url = "...";
       // axios
-      //   .post("https://reqres.in/api/articles", article)
+      //   .post("url", this.formattedSelected)
       //   .then((response) => (this.articleId = response.data.id));
 
       this.$q.notify({
