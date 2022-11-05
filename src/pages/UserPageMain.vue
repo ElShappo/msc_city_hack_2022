@@ -43,6 +43,7 @@
 
 <script>
 import readXlsxFile from "read-excel-file";
+import axios from "axios";
 
 export default {
   name: "UserPageMain",
@@ -243,10 +244,9 @@ export default {
 
       this.formatSelected();
 
-      // const url = "...";
-      // axios
-      //   .post("url", this.formattedSelected)
-      //   .then((response) => (this.articleId = response.data.id));
+      const url = "...";
+      axios.post(url, this.formattedSelected);
+      // .then((response) => (this.articleId = response.data.id));
 
       this.$q.notify({
         type: "positive",
