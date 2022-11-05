@@ -138,6 +138,7 @@ export default {
         4: null,
         5: null,
       },
+      formattedExported: [],
     };
   },
 
@@ -159,10 +160,31 @@ export default {
         rows.shift();
         console.log(rows);
         this.rows = rows;
-        for (let i = 0; i < this.rows.length; ++i) {
-          // this.rows[i] = Object.assign(this.rows[i]);
-          console.log(this.rows[i]);
+        for (let row of this.rows) {
+          console.log(row);
+          let obj = {
+            location: "",
+            rooms: "",
+            category: "",
+            floors: "",
+            walls_material: "",
+            floor: "",
+            total_area: "",
+            kitchen_area: "",
+            is_balcony: "",
+            metro_distance: "",
+            condition: "",
+            price: "",
+          };
+          let i = 0;
+          for (let key in obj) {
+            let elem = row[i];
+            obj[key] = elem + "";
+            ++i;
+          }
+          this.formattedExported.push(obj);
         }
+        console.log(this.formattedExported);
       });
     },
 
