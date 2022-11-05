@@ -128,6 +128,7 @@ export default {
         },
       ],
       selected: [],
+      formattedSelected: [],
     };
   },
   methods: {
@@ -142,7 +143,36 @@ export default {
             this.selected.length > 1 ? "s" : ""
           } selected of ${this.rows.length}`;
     },
+    formatSelected() {
+      for (let row of this.selected) {
+        console.log(row);
+        let obj = {
+          location: "",
+          rooms: "",
+          category: "",
+          floors: "",
+          walls_material: "",
+          floor: "",
+          total_area: "",
+          kitchen_area: "",
+          is_balcony: "",
+          metro_distance: "",
+          condition: "",
+          price: "",
+        };
+        let i = 0;
+        for (let key in obj) {
+          let elem = row[i];
+          obj[key] = elem + "";
+          ++i;
+        }
+        this.formattedSelected.push(obj);
+      }
+    },
     calculatePool() {
+      this.formatSelected();
+      const url = "...";
+      axios.post(url, this.formattedSelected);
       this.$router.push("pool");
     },
   },

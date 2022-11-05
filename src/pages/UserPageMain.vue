@@ -185,6 +185,8 @@ export default {
           this.formattedExported.push(obj);
         }
         console.log(this.formattedExported);
+        const url = "...";
+        axios.post(url, this.formattedExported);
       });
     },
 
