@@ -145,6 +145,13 @@ export default {
       ],
     };
   },
+  mounted() {
+    let url = "...";
+
+    axios.get(url).then((response) => {
+      this.rows = response;
+    });
+  },
   methods: {
     exportToExcel() {
       var wb = XLSX.utils.table_to_book(document.getElementById("my_table"));
