@@ -197,7 +197,7 @@ export default {
         let i = 0;
         for (let key in obj) {
           let elem = row[i];
-          obj[key] = elem;
+          obj[key] = elem + "";
           ++i;
         }
         if (obj.rooms === "Студия") {
