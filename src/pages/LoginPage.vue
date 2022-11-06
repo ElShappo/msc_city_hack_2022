@@ -54,6 +54,7 @@
 <script>
 // import { Loading } from "quasar";
 // import readXlsxFile from "read-excel-file";
+import axios from "axios";
 
 export default {
   name: "LoginPage",
@@ -71,11 +72,11 @@ export default {
       this.login = this.loginInput;
       this.password = this.passwordInput;
 
-      const login = this.login;
+      // const login = this.login;
 
       const url = "...";
       axios
-        .post(url, { login, password })
+        .post(url, { login: this.login, password: this.password })
         .then((response) => response.data)
         .then((status) => {
           if (status === "Ok") {

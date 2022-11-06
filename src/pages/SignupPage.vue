@@ -88,12 +88,14 @@ export default {
       this.login = this.loginInput;
       this.password = this.passwordInput;
 
-      const login = this.login;
+      // const login = this.login;
 
       const url = "...";
-      axios.post(url, { login, password }).then(() => {
-        this.$router.push("/login");
-      });
+      axios
+        .post(url, { login: this.login, password: this.password })
+        .then(() => {
+          this.$router.push("/login");
+        });
     },
     reset() {
       this.loginInput = "";

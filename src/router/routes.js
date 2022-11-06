@@ -24,6 +24,36 @@ const routes = [
       {
         path: "corrections",
         component: Corrections,
+        children: [
+          {
+            path: "floor",
+            component: () => import("pages/Corrections/FloorPage.vue"),
+          },
+          {
+            path: "auction",
+            component: () => import("pages/Corrections/AuctionPage.vue"),
+          },
+          {
+            path: "flatArea",
+            component: () => import("pages/Corrections/FlatAreaPage.vue"),
+          },
+          {
+            path: "kitchenArea",
+            component: () => import("pages/Corrections/KitchenAreaPage.vue"),
+          },
+          {
+            path: "balcony",
+            component: () => import("pages/Corrections/BalconyPage.vue"),
+          },
+          {
+            path: "metro",
+            component: () => import("pages/Corrections/MetroPage.vue"),
+          },
+          {
+            path: "condition",
+            component: () => import("pages/Corrections/ConditionPage.vue"),
+          },
+        ],
       },
       { path: "analogues", component: () => import("pages/AnaloguesPage.vue") },
       { path: "pool", component: () => import("pages/PoolPage.vue") },
