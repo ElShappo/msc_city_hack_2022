@@ -1,6 +1,6 @@
 # Quasar App (hackaton)
 
-A Quasar Project
+FRONTEND (SPA web-app) written specially for annual Moscow City Hack
 
 ## Install the dependencies
 ```bash
