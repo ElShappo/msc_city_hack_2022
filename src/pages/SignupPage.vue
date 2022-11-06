@@ -106,6 +106,13 @@ export default {
               message: "Такой пользователь уже существует",
             });
           }
+        })
+        .catch((error) => {
+          this.$q.notify({
+            type: "negative",
+            message: "Произошла ошибка",
+          });
+          console.log(error);
         });
     },
     reset() {

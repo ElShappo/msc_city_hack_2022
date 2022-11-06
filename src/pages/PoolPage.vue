@@ -150,10 +150,19 @@ export default {
   mounted() {
     let url = "http://127.0.0.1:8081/api/estimations";
 
-    axios.get(url).then((response) => {
-      this.rows = response.data;
-      console.log(response);
-    });
+    axios
+      .get(url)
+      .then((response) => {
+        this.rows = response.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        this.$q.notify({
+          type: "negative",
+          message: "Не удалось загрузить данные с сервера",
+        });
+        console.log(error);
+      });
   },
   methods: {
     exportToExcel() {

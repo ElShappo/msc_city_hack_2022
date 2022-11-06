@@ -178,7 +178,13 @@ export default {
         console.log(this.formattedExported);
         // объекты оценки
         const url = "http://127.0.0.1:8081/api/estimations"; // посчитать цену всех
-        axios.post(url, this.formattedExported);
+        axios.post(url, this.formattedExported).catch((error) => {
+          this.$q.notify({
+            type: "negative",
+            message: "Произошла ошибка",
+          });
+          console.log(error);
+        });
       });
     },
 
@@ -273,9 +279,17 @@ export default {
       const url = "http://127.0.0.1:8081/api/standard"; // эталонные объекты
       axios
         .post(url, this.formattedSelected)
-        .then((response) => console.log(response));
-
-      setTimeout(() => this.$router.push("analogues"), 100);
+        .then((response) => console.log(response))
+        .then((response) => {
+          this.$router.push("analogues");
+        })
+        .catch((error) => {
+          this.$q.notify({
+            type: "negative",
+            message: "Произошла ошибка",
+          });
+          console.log(error);
+        });
     },
   },
 };

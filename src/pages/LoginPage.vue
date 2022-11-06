@@ -91,6 +91,13 @@ export default {
               message: "Пароль или логин введен(-ы) некорректно",
             });
           }
+        })
+        .catch((error) => {
+          this.$q.notify({
+            type: "negative",
+            message: "Произошла ошибка",
+          });
+          console.log(error);
         });
 
       // Loading.show();

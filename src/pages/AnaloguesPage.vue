@@ -170,10 +170,26 @@ export default {
     },
     calculatePool() {
       this.formatSelected();
+      if (this.formattedSelected.length === 0) {
+        this.$q.notify({
+          type: "warning",
+          message: "Ни одна квартира не выбрана",
+        });
+        return;
+      }
       const url = "http://127.0.0.1:8081/api/analogs"; // квартиры-аналоги
-      axios.post(url, this.formattedSelected).then((response) => {
-        this.$router.push("pool");
-      });
+      axios
+        .post(url, this.formattedSelected)
+        .then((response) => {
+          this.$router.push("pool");
+        })
+        .catch((error) => {
+          this.$q.notify({
+            type: "negative",
+            message: "Произошла ошибка",
+          });
+          console.log(error);
+        });
     },
   },
   mounted() {
@@ -181,10 +197,19 @@ export default {
 
     // under this url we would get the array of arrays
 
-    axios.get(url).then((response) => {
-      this.rows = response.data;
-      console.log(response);
-    });
+    axios
+      .get(url)
+      .then((response) => {
+        this.rows = response.data;
+        console.log(response);
+      })
+      .catch((error) => {
+        this.$q.notify({
+          type: "negative",
+          message: "Произошла ошибка",
+        });
+        console.log(error);
+      });
   },
 };
 </script>
