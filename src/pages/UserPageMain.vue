@@ -8,7 +8,7 @@
         <q-uploader
           @added="onFileChangeQuasar"
           @removed="onFileRemoveQuasar"
-          label="Upload a file"
+          label="Загрузить excel"
           color="primary"
           style="max-width: 200px; max-height: 120px"
         />
@@ -274,11 +274,6 @@ export default {
       axios
         .post(url, this.formattedSelected)
         .then((response) => console.log(response));
-
-      this.$q.notify({
-        type: "positive",
-        message: "Success!",
-      });
 
       setTimeout(() => this.$router.push("analogues"), 100);
     },

@@ -1,15 +1,15 @@
 <template>
   <q-page class="indexPage flex flex-center column text-white">
-    <div class="text-h4 q-pb-xl text-weight-light">Login form</div>
+    <div class="text-h4 q-pb-xl text-weight-light">Вход в аккаунт</div>
     <q-form @submit="submit" @reset="reset" class="q-gutter-md">
       <q-input
         dark
         color="yellow-3"
         filled
         v-model="loginInput"
-        label="Your login"
+        label="Ваш логин"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Please type your login']"
+        :rules="[(val) => (val && val.length > 0) || 'Введите ваш логин']"
       >
         <template v-slot:prepend>
           <q-icon name="person" />
@@ -21,13 +21,13 @@
         color="yellow-3"
         filled
         v-model="passwordInput"
-        label="Your password"
+        label="Ваш пароль"
         lazy-rules
         :rules="[
-          (val) => (val !== null && val !== '') || 'Please type your password',
+          (val) => (val !== null && val !== '') || 'Введите ваш пароль',
           (val) =>
             (val && val.length > 5) ||
-            'Password should be at least 6 symbols long',
+            'Пароль должен содержать более 5 символов',
         ]"
       >
         <template v-slot:prepend>
@@ -36,9 +36,9 @@
       </q-input>
 
       <div class="text-center">
-        <q-btn label="Submit" type="submit" color="primary" />
+        <q-btn label="Подтвердить" type="submit" color="primary" />
         <q-btn
-          label="Reset"
+          label="Сбросить"
           type="reset"
           color="primary"
           flat
@@ -46,14 +46,10 @@
         />
       </div>
     </q-form>
-
-    <!-- <input type="file" @change="onFileChange" /> -->
   </q-page>
 </template>
 
 <script>
-// import { Loading } from "quasar";
-// import readXlsxFile from "read-excel-file";
 import axios from "axios";
 
 export default {

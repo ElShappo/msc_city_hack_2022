@@ -171,8 +171,9 @@ export default {
     calculatePool() {
       this.formatSelected();
       const url = "http://127.0.0.1:8081/api/analogs"; // квартиры-аналоги
-      axios.post(url, this.formattedSelected);
-      this.$router.push("pool");
+      axios.post(url, this.formattedSelected).then((response) => {
+        this.$router.push("pool");
+      });
     },
   },
   mounted() {

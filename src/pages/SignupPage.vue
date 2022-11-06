@@ -1,15 +1,15 @@
 <template>
   <q-page class="indexPage flex flex-center column text-white">
-    <div class="text-h4 q-pb-xl text-weight-light">Registration form</div>
+    <div class="text-h4 q-pb-xl text-weight-light">Регистрация</div>
     <q-form @submit="submit" @reset="reset" class="q-gutter-md">
       <q-input
         dark
         color="yellow-3"
         filled
         v-model="loginInput"
-        label="Your login"
+        label="Придумайте логин"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Please type your login']"
+        :rules="[(val) => (val && val.length > 0) || 'Придумайте свой логин']"
       >
         <template v-slot:prepend>
           <q-icon name="person" />
@@ -21,13 +21,13 @@
         color="yellow-3"
         filled
         v-model="passwordInput"
-        label="Your password"
+        label="Придумайте пароль"
         lazy-rules
         :rules="[
-          (val) => (val !== null && val !== '') || 'Please type your password',
+          (val) => (val !== null && val !== '') || 'Придумайте свой пароль',
           (val) =>
             (val && val.length > 5) ||
-            'Password should be at least 6 symbols long',
+            'Пароль должен содержать более 5 символов',
         ]"
       >
         <template v-slot:prepend>
@@ -40,12 +40,11 @@
         color="yellow-3"
         filled
         v-model="passwordRetypeInput"
-        label="Retype password"
+        label="Введите пароль еще раз"
         lazy-rules
         :rules="[
-          (val) =>
-            (val !== null && val !== '') || 'Please retype your password',
-          (val) => val === passwordInput || 'Passwords do not match',
+          (val) => (val !== null && val !== '') || 'Введите пароль еще раз',
+          (val) => val === passwordInput || 'Пароли не совпадают',
         ]"
       >
         <template v-slot:prepend>
@@ -54,9 +53,9 @@
       </q-input>
 
       <div class="text-center">
-        <q-btn label="Submit" type="submit" color="primary" />
+        <q-btn label="Подтвердить" type="submit" color="primary" />
         <q-btn
-          label="Reset"
+          label="Сбросить"
           type="reset"
           color="primary"
           flat
@@ -69,7 +68,6 @@
 
 <script>
 import axios from "axios";
-// import { Loading } from "quasar";
 
 export default {
   name: "LoginPage",
