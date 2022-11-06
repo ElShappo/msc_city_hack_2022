@@ -1,6 +1,9 @@
 <template>
   <q-page class="row">
     <div class="col-3 row justify-center content-center">
+      <div class="text-h5 text-center q-pb-lg">
+        Выберите квартиры-аналоги для расчета
+      </div>
       <div class="col-12 row justify-center">
         <q-btn
           @click="calculatePool"

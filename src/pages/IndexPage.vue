@@ -1,14 +1,12 @@
 <template>
-  <q-page
-    class="index text-weight-light text-white row justify-center text-h4 content-center"
-  >
-    <div class="col-12 row">
-      <div class="col-3"></div>
-      <div class="col-6">Аналитический центр</div>
-    </div>
-    <div class="col-12 row">
-      <div class="col-3"></div>
-      <div class="col-6">There will be some text</div>
+  <q-page class="index text-weight-light text-white row text-h4 content-center">
+    <div class="row col-7 justify-center">
+      <div class="row justify-center">
+        <div class="col-12 text-center">Аналитический центр</div>
+        <div class="text-h6 text-italic col-12 text-center">
+          Делаем вашу жизнь проще
+        </div>
+      </div>
     </div>
   </q-page>
 </template>

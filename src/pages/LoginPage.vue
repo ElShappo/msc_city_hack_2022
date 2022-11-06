@@ -74,12 +74,15 @@ export default {
 
       // const login = this.login;
 
-      const url = "...";
+      const url = "http://127.0.0.1:8081/user/login";
       axios
         .post(url, { login: this.login, password: this.password })
-        .then((response) => response.data)
+        .then((response) => {
+          console.log(response);
+          return response.status;
+        })
         .then((status) => {
-          if (status === "Ok") {
+          if (status === 200) {
             this.$router.push({ name: "user", params: { login: this.login } });
           } else {
             this.login = "";

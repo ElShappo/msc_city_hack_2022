@@ -90,11 +90,24 @@ export default {
 
       // const login = this.login;
 
-      const url = "...";
+      const url = "http://127.0.0.1:8081/user/register";
       axios
         .post(url, { login: this.login, password: this.password })
-        .then(() => {
-          this.$router.push("/login");
+        .then((response) => {
+          if (response.status === 200) {
+            this.$router.push("/login");
+          } else {
+            this.login = "";
+            this.password = "";
+            this.loginInput = "";
+            this.passwordInput = "";
+            this.passwordRetypeInput = "";
+
+            this.$q.notify({
+              type: "negative",
+              message: "Такой пользователь уже существует",
+            });
+          }
         });
     },
     reset() {

@@ -1,9 +1,13 @@
 <template>
   <q-page class="row">
     <div class="col-3 row justify-center content-center">
+      <div class="text-h5 text-center q-pb-lg" v-if="showLabel">
+        Выберите эталонные объекты
+      </div>
       <div class="col-12 row justify-center q-pb-lg">
         <q-uploader
           @added="onFileChangeQuasar"
+          @removed="onFileRemoveQuasar"
           label="Upload a file"
           color="primary"
           style="max-width: 200px; max-height: 120px"
@@ -135,6 +139,7 @@ export default {
         5: null,
       },
       formattedExported: [],
+      showLabel: false,
     };
   },
   methods: {
@@ -142,6 +147,7 @@ export default {
       // console.log(event);
       let xlsxfile = event ? event[0] : null;
       readXlsxFile(xlsxfile).then((rows) => {
+        this.showLabel = true;
         rows.shift();
         console.log(rows);
         this.rows = rows;
@@ -174,6 +180,16 @@ export default {
         const url = "http://127.0.0.1:8081/api/estimations"; // посчитать цену всех
         axios.post(url, this.formattedExported);
       });
+    },
+
+    onFileRemoveQuasar() {
+      this.showLabel = false;
+      this.rows = [];
+      this.selected = [];
+      for (let key in this.formattedSelected) {
+        this.formattedExported[key] = null;
+      }
+      this.formattedExported = [];
     },
 
     createId(row) {
