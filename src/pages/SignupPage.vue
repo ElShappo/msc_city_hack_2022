@@ -93,6 +93,10 @@ export default {
         .post(url, { login: this.login, password: this.password })
         .then((response) => {
           if (response.status === 200) {
+            this.$q.notify({
+              type: "positive",
+              message: "Пользователь успешно зарегистрирован!",
+            });
             this.$router.push("/login");
           } else {
             this.login = "";

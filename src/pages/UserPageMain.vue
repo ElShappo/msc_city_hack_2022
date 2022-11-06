@@ -8,6 +8,8 @@
         <q-uploader
           @added="onFileChangeQuasar"
           @removed="onFileRemoveQuasar"
+          max-files="1"
+          accept=".xlsx"
           label="Загрузить excel"
           color="primary"
           style="max-width: 200px; max-height: 120px"
@@ -176,15 +178,20 @@ export default {
           this.formattedExported.push(obj);
         }
         console.log(this.formattedExported);
-        // объекты оценки
-        const url = "http://127.0.0.1:8081/api/estimations"; // посчитать цену всех
-        axios.post(url, this.formattedExported).catch((error) => {
-          this.$q.notify({
-            type: "negative",
-            message: "Произошла ошибка",
-          });
-          console.log(error);
+
+        this.onFileUploaded();
+      });
+    },
+
+    onFileUploaded() {
+      // объекты оценки
+      const url = "http://127.0.0.1:8081/api/estimations"; // посчитать цену всех
+      axios.post(url, this.formattedExported).catch((error) => {
+        this.$q.notify({
+          type: "negative",
+          message: "Не удалось загрузить импортированную таблицу на сервер",
         });
+        console.log(error);
       });
     },
 
