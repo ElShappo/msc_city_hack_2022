@@ -64,8 +64,6 @@ export default {
 
       login: "",
       password: "",
-
-      // file: "",
     };
   },
   methods: {
@@ -75,7 +73,25 @@ export default {
 
       const login = this.login;
 
-      this.$router.push({ name: "user", params: { login: this.login } });
+      const url = "...";
+      axios
+        .post(url, { login, password })
+        .then((response) => response.data)
+        .then((status) => {
+          if (status === "Ok") {
+            this.$router.push({ name: "user", params: { login: this.login } });
+          } else {
+            this.login = "";
+            this.password = "";
+            this.loginInput = "";
+            this.passwordInput = "";
+
+            this.$q.notify({
+              type: "negative",
+              message: "Пароль или логин введен(-ы) некорректно",
+            });
+          }
+        });
 
       // Loading.show();
       // setTimeout(() => Loading.hide(), 2000);

@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import axios from "axios";
 // import { Loading } from "quasar";
 
 export default {
@@ -89,10 +90,10 @@ export default {
 
       const login = this.login;
 
-      this.$router.push({ name: "user", params: { login: this.login } });
-
-      // Loading.show();
-      // setTimeout(() => Loading.hide(), 2000);
+      const url = "...";
+      axios.post(url, { login, password }).then(() => {
+        this.$router.push("/login");
+      });
     },
     reset() {
       this.loginInput = "";

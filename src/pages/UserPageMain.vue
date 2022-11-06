@@ -1,7 +1,5 @@
 <template>
   <q-page class="row">
-    <!-- <input type="file" @change="onFileChange" /> -->
-
     <div class="col-3 row justify-center content-center">
       <div class="col-12 row justify-center q-pb-lg">
         <q-uploader
@@ -36,8 +34,6 @@
         v-model:selected="selected"
       />
     </div>
-
-    <!-- <div class="q-mt-md col-12">Selected: {{ selected }}</div> -->
   </q-page>
 </template>
 
@@ -141,17 +137,6 @@ export default {
       formattedExported: [],
     };
   },
-
-  // watch: {
-  //   selected() {
-  //     for (let row of this.selected) {
-  //       for (let elem of row) {
-  //         console.log(elem);
-  //       }
-  //     }
-  //     // console.log(this.selected);
-  //   },
-  // },
   methods: {
     onFileChangeQuasar(event) {
       // console.log(event);
@@ -185,7 +170,8 @@ export default {
           this.formattedExported.push(obj);
         }
         console.log(this.formattedExported);
-        const url = "...";
+        // объекты оценки
+        const url = "http://127.0.0.1:8081/api/estimations"; // посчитать цену всех
         axios.post(url, this.formattedExported);
       });
     },
@@ -267,17 +253,18 @@ export default {
       }
 
       this.formatSelected();
-
-      const url = "...";
-      axios.post(url, this.formattedSelected);
-      // .then((response) => (this.articleId = response.data.id));
+      // Отправка эталонных объектов
+      const url = "http://127.0.0.1:8081/api/standard"; // эталонные объекты
+      axios
+        .post(url, this.formattedSelected)
+        .then((response) => console.log(response));
 
       this.$q.notify({
         type: "positive",
         message: "Success!",
       });
 
-      this.$router.push("analogues");
+      setTimeout(() => this.$router.push("analogues"), 100);
     },
   },
 };

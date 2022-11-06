@@ -15,6 +15,7 @@
         <th>Наличие балкона/лоджии</th>
         <th>Удаленность от станции метро</th>
         <th>Состояние</th>
+        <th>Цена, млн. руб</th>
       </tr>
       <tr v-for="row in rows" :key="row[0]">
         <td v-for="elem in row" :key="elem">
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "PoolPage",
   data() {
@@ -146,10 +148,11 @@ export default {
     };
   },
   mounted() {
-    let url = "...";
+    let url = "http://127.0.0.1:8081/api/estimations";
 
     axios.get(url).then((response) => {
-      this.rows = response;
+      this.rows = response.data;
+      console.log(response);
     });
   },
   methods: {

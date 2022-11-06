@@ -1,7 +1,5 @@
 <template>
   <q-page class="row">
-    <!-- <input type="file" @change="onFileChange" /> -->
-
     <div class="col-3 row justify-center content-center">
       <div class="col-12 row justify-center">
         <q-btn
@@ -28,8 +26,6 @@
         v-model:selected="selected"
       />
     </div>
-
-    <!-- <div class="q-mt-md col-12">Selected: {{ selected }}</div> -->
   </q-page>
 </template>
 
@@ -171,21 +167,20 @@ export default {
     },
     calculatePool() {
       this.formatSelected();
-      const url = "...";
+      const url = "http://127.0.0.1:8081/api/analogs"; // квартиры-аналоги
       axios.post(url, this.formattedSelected);
       this.$router.push("pool");
     },
   },
   mounted() {
-    // let url = "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits";
-    let url = "http://127.0.0.1:8081/calc_analogs";
+    let url = "http://127.0.0.1:8081/api/analogs"; // получение квартир-аналогов
 
     // under this url we would get the array of arrays
 
     axios.get(url).then((response) => {
-      this.rows = response;
+      this.rows = response.data;
+      console.log(response);
     });
-    // .then((response) => this.rows.push([JSON.stringify(response)]));
   },
 };
 </script>
